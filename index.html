@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>IAMediAgency LLC — Media & Technology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+<style>
+  /* ─── RESET & BASE ─────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --white:    #FFFFFF;
+    --cream:    #FAFAF7;
+    --beige:    #F5F5F0;
+    --sand:     #E8E3DC;
+    --taupe:    #C7BFB2;
+    --warm-gray:#86868B;
+    --charcoal: #1D1D1F;
+    --black:    #0A0A0A;
+    --accent:   #1D1D1F;
+    --font-head: 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --nav-h: 72px;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  html { scroll-behavior: smooth; overflow-x: hidden; }
+  body {
+    background: var(--white);
+    color: var(--charcoal);
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { text-decoration: none; color: inherit; }
+  img { display: block; max-width: 100%; }
+  ::selection { background: var(--charcoal); color: var(--white); }
+
+  /* ─── NAV ──────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: var(--nav-h);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.4s, background 0.4s;
+  }
+  nav.scrolled {
+    border-color: var(--sand);
+  }
+  .nav-logo {
+    font-family: var(--font-head);
+    font-size: 1.35rem;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    color: var(--charcoal);
+  }
+  .nav-logo span { font-weight: 600; }
+  .nav-links {
+    display: flex; gap: 40px; list-style: none;
+    font-size: 0.78rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase;
+  }
+  .nav-links a {
+    color: var(--warm-gray);
+    transition: color 0.25s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; left: 0; bottom: -4px;
+    width: 0; height: 1px; background: var(--charcoal);
+    transition: width 0.3s var(--ease);
+  }
+  .nav-links a:hover { color: var(--charcoal); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-cta {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 10px 24px;
+    border-radius: 100px;
+    transition: background 0.3s, transform 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .nav-cta:hover { background: var(--black); transform: translateY(-1px); }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 1px; background: var(--charcoal); transition: 0.3s; display: block; }
+
+  /* ─── HERO ──────────────────────────────────────── */
+  #hero {
+    min-height: 100dvh;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    padding: 120px 48px 80px;
+    position: relative; overflow: hidden;
+    background: var(--cream);
+    text-align: center;
+  }
+  .hero-tag {
+    font-size: 0.72rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--warm-gray);
+    margin-bottom: 32px;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.9s var(--ease) 0.3s forwards;
+  }
+  .hero-h1 {
+    font-family: var(--font-head);
+    font-size: clamp(3.2rem, 7vw, 7rem);
+    font-weight: 400;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    max-width: 900px;
+    color: var(--charcoal);
+    opacity: 0; transform: translateY(30px);
+    animation: fadeUp 1s var(--ease) 0.5s forwards;
+  }
+  .hero-h1 em { font-style: italic; }
+  .hero-sub {
+    margin-top: 32px;
+    max-width: 520px;
+    font-size: 1rem; color: var(--warm-gray); line-height: 1.8; font-weight: 400;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.9s var(--ease) 0.75s forwards;
+  }
+  .hero-actions {
+    margin-top: 48px;
+    display: flex; align-items: center; gap: 24px;
+    opacity: 0; transform: translateY(20px);
+    animation: fadeUp 0.9s var(--ease) 0.95s forwards;
+  }
+  .btn-primary {
+    font-family: var(--font-body);
+    font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+    background: var(--charcoal); color: var(--white);
+    padding: 16px 40px;
+    border-radius: 100px;
+    transition: background 0.3s, transform 0.2s;
+    display: inline-block;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: var(--black); transform: translateY(-2px); }
+  .btn-ghost {
+    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--warm-gray); transition: color 0.25s;
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 500;
+  }
+  .btn-ghost:hover { color: var(--charcoal); }
+  .btn-ghost svg { transition: transform 0.3s; }
+  .btn-ghost:hover svg { transform: translateX(5px); }
+  .hero-stats {
+    margin-top: 80px;
+    display: flex; gap: 64px;
+    opacity: 0; animation: fadeUp 0.9s var(--ease) 1.1s forwards;
+  }
+  .stat-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 2.2rem; font-weight: 400; color: var(--charcoal);
+    line-height: 1;
+  }
+  .stat-label { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-gray); }
+
+  /* ─── SECTION SHARED ───────────────────────────── */
+  section { position: relative; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .section-label {
+    font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--warm-gray); margin-bottom: 20px;
+  }
+  .section-h2 {
+    font-family: var(--font-head);
+    font-size: clamp(2.2rem, 4.5vw, 4rem);
+    font-weight: 400; line-height: 1.1;
+    color: var(--charcoal);
+  }
+  .section-h2 em { font-style: italic; }
+
+  /* ─── MARQUEE ──────────────────────────────────── */
+  .marquee-wrap {
+    overflow: hidden; border-top: 1px solid var(--sand); border-bottom: 1px solid var(--sand);
+    padding: 20px 0; background: var(--white);
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 30s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-track span {
+    font-family: var(--font-head);
+    font-size: 1rem; font-weight: 400; color: var(--taupe);
+    letter-spacing: 0.06em;
+    padding: 0 40px;
+  }
+  .marquee-track span em { color: var(--charcoal); font-style: italic; }
+
+  /* ─── ABOUT ──────────────────────────────────────── */
+  #about {
+    padding: 140px 0;
+    background: var(--white);
+  }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .about-left .section-h2 { margin-bottom: 32px; }
+  .about-body { color: var(--warm-gray); line-height: 1.9; font-size: 0.95rem; font-weight: 400; }
+  .about-body p + p { margin-top: 20px; }
+  .about-body strong { color: var(--charcoal); font-weight: 600; }
+  .about-right {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .about-card {
+    border: 1px solid var(--sand);
+    padding: 32px 36px;
+    background: var(--cream);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    transition: border-color 0.3s, background 0.3s, transform 0.2s;
+    cursor: default;
+  }
+  .about-card:hover { border-color: var(--taupe); background: var(--beige); transform: translateY(-2px); }
+  .about-card-icon {
+    width: 36px; height: 36px; margin-bottom: 18px;
+    color: var(--charcoal);
+  }
+  .about-card h3 {
+    font-family: var(--font-head); font-size: 1.3rem; font-weight: 500;
+    margin-bottom: 10px; color: var(--charcoal);
+  }
+  .about-card p { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.7; }
+
+  /* ─── SERVICES ─────────────────────────────────── */
+  #services { padding: 140px 0; background: var(--cream); }
+  .services-header {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    margin-bottom: 80px; align-items: end;
+  }
+  .services-desc { color: var(--warm-gray); font-size: 0.9rem; line-height: 1.9; align-self: end; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  }
+  .service-card {
+    background: var(--white);
+    padding: 44px 36px;
+    border-radius: 16px;
+    border: 1px solid var(--sand);
+    position: relative; overflow: hidden;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .service-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.06); border-color: var(--taupe); }
+  .service-num {
+    font-family: var(--font-head);
+    font-size: 3rem; font-weight: 400; color: var(--sand);
+    line-height: 1; margin-bottom: 20px;
+    transition: color 0.3s;
+  }
+  .service-card:hover .service-num { color: var(--taupe); }
+  .service-card h3 {
+    font-family: var(--font-head); font-size: 1.5rem; font-weight: 500;
+    margin-bottom: 16px; line-height: 1.2; color: var(--charcoal);
+  }
+  .service-card p { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.8; }
+  .service-tags {
+    margin-top: 24px; display: flex; flex-wrap: wrap; gap: 8px;
+  }
+  .tag {
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    border: 1px solid var(--sand); padding: 5px 14px; color: var(--warm-gray);
+    border-radius: 100px;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+  }
+  .service-card:hover .tag { border-color: var(--taupe); color: var(--charcoal); background: var(--beige); }
+
+  /* ─── TESTIMONIALS ─────────────────────────────── */
+  #testimonials { padding: 120px 0; background: var(--white); }
+  .testimonials-header { text-align: center; margin-bottom: 64px; }
+  .testimonials-header .section-label { justify-content: center; display: block; text-align: center; }
+  .testimonials-header .section-h2 { margin-top: 16px; }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+  }
+  .testimonial-card {
+    background: var(--cream);
+    border: 1px solid var(--sand);
+    border-radius: 16px;
+    padding: 40px 32px;
+    transition: transform 0.2s, box-shadow 0.3s;
+  }
+  .testimonial-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.05); }
+  .testimonial-stars { color: var(--charcoal); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; }
+  .testimonial-text { font-size: 0.92rem; color: var(--charcoal); line-height: 1.8; font-style: italic; font-family: var(--font-head); }
+  .testimonial-author { margin-top: 24px; display: flex; flex-direction: column; gap: 2px; }
+  .testimonial-name { font-size: 0.85rem; font-weight: 600; color: var(--charcoal); }
+  .testimonial-role { font-size: 0.75rem; color: var(--warm-gray); }
+
+  /* ─── PROCESS ──────────────────────────────────── */
+  #process {
+    padding: 120px 0;
+    background: var(--cream);
+    border-top: 1px solid var(--sand);
+  }
+  .process-inner {
+    display: grid; grid-template-columns: 360px 1fr; gap: 100px; align-items: start;
+  }
+  .process-left .section-h2 { margin-bottom: 24px; }
+  .process-left p { font-size: 0.88rem; color: var(--warm-gray); line-height: 1.9; }
+  .process-steps { display: flex; flex-direction: column; }
+  .step {
+    display: grid; grid-template-columns: 80px 1fr;
+    border-top: 1px solid var(--sand);
+    padding: 36px 0;
+    gap: 32px;
+    align-items: start;
+    transition: background 0.3s;
+    cursor: default;
+  }
+  .step:last-child { border-bottom: 1px solid var(--sand); }
+  .step-num {
+    font-family: var(--font-head); font-size: 2rem; font-weight: 400;
+    color: var(--taupe); transition: color 0.3s;
+  }
+  .step:hover .step-num { color: var(--charcoal); }
+  .step-content h3 {
+    font-family: var(--font-head); font-size: 1.3rem; font-weight: 500;
+    margin-bottom: 10px; color: var(--charcoal);
+  }
+  .step-content p { font-size: 0.85rem; color: var(--warm-gray); line-height: 1.8; }
+
+  /* ─── CONTACT ──────────────────────────────────── */
+  #contact { padding: 140px 0; background: var(--white); }
+  .contact-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start;
+  }
+  .contact-left .section-h2 { margin-bottom: 32px; }
+  .contact-left p { font-size: 0.9rem; color: var(--warm-gray); line-height: 1.9; max-width: 400px; }
+  .contact-info { margin-top: 48px; display: flex; flex-direction: column; gap: 20px; }
+  .contact-link {
+    display: flex; align-items: center; gap: 16px;
+    font-size: 0.85rem; color: var(--warm-gray);
+    transition: color 0.25s;
+    padding-bottom: 20px; border-bottom: 1px solid var(--sand);
+  }
+  .contact-link:last-child { border-bottom: none; }
+  .contact-link:hover { color: var(--charcoal); }
+  .contact-link-icon { color: var(--charcoal); flex-shrink: 0; }
+  .contact-form { display: flex; flex-direction: column; gap: 2px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+  .field { display: flex; flex-direction: column; }
+  .field label {
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--warm-gray); margin-bottom: 8px;
+  }
+  .field input, .field textarea, .field select {
+    background: var(--cream); border: 1px solid var(--sand);
+    color: var(--charcoal); font-family: var(--font-body); font-size: 0.88rem; font-weight: 400;
+    padding: 14px 20px; outline: none;
+    border-radius: 10px;
+    transition: border-color 0.25s;
+    width: 100%; resize: none;
+    -webkit-appearance: none; appearance: none;
+  }
+  .field input:focus, .field textarea:focus, .field select:focus {
+    border-color: var(--charcoal);
+  }
+  .field textarea { min-height: 130px; }
+  .field select { cursor: pointer; }
+  .field select option { background: var(--white); }
+  .field + .field { margin-top: 12px; }
+  .form-submit {
+    margin-top: 16px;
+    background: var(--charcoal); color: var(--white);
+    border: none; cursor: pointer;
+    font-family: var(--font-body); font-size: 0.82rem;
+    font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 18px;
+    width: 100%;
+    border-radius: 100px;
+    transition: background 0.3s, transform 0.2s;
+  }
+  .form-submit:hover { background: var(--black); transform: translateY(-2px); }
+  .form-note { font-size: 0.7rem; color: var(--warm-gray); margin-top: 14px; text-align: center; }
+  .toast {
+    position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%) translateY(20px);
+    background: var(--charcoal); color: var(--white);
+    padding: 16px 32px; font-size: 0.82rem; letter-spacing: 0.06em;
+    border-radius: 100px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.4s, transform 0.4s;
+    z-index: 999;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ─── FOOTER ───────────────────────────────────── */
+  footer {
+    border-top: 1px solid var(--sand);
+    padding: 48px 0;
+    background: var(--cream);
+  }
+  .footer-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 24px;
+  }
+  .footer-logo {
+    font-family: var(--font-head); font-size: 1.15rem; font-weight: 600;
+    color: var(--charcoal);
+  }
+  .footer-links {
+    display: flex; gap: 32px; list-style: none;
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm-gray);
+  }
+  .footer-links a:hover { color: var(--charcoal); }
+  .footer-social {
+    display: flex; gap: 20px; align-items: center;
+  }
+  .footer-social a {
+    color: var(--warm-gray);
+    transition: color 0.25s;
+  }
+  .footer-social a:hover { color: var(--charcoal); }
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 32px; padding-top: 24px;
+    border-top: 1px solid var(--sand);
+  }
+  .footer-copy { font-size: 0.72rem; color: var(--warm-gray); }
+
+  /* ─── MOBILE NAV OVERLAY ─────────────────────── */
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 99;
+    background: var(--white);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 40px;
+    transform: translateY(-100%);
+    transition: transform 0.5s var(--ease);
+  }
+  .mobile-menu.open { transform: translateY(0); }
+  .mobile-menu a {
+    font-family: var(--font-head); font-size: 2.5rem; font-weight: 400;
+    color: var(--charcoal);
+  }
+  .mobile-menu a:hover { color: var(--warm-gray); }
+  .close-btn {
+    position: absolute; top: 28px; right: 28px;
+    font-size: 1.5rem; cursor: pointer;
+    background: none; border: none; color: var(--charcoal);
+  }
+
+  /* ─── ANIMATIONS ────────────────────────────── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── RESPONSIVE ────────────────────────────── */
+  @media (max-width: 960px) {
+    nav { padding: 0 28px; }
+    .nav-links, .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    #hero { padding: 120px 28px 80px; }
+    .container { padding: 0 28px; }
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .services-header { grid-template-columns: 1fr; }
+    .services-grid { grid-template-columns: 1fr; }
+    .testimonials-grid { grid-template-columns: 1fr; }
+    .process-inner { grid-template-columns: 1fr; gap: 48px; }
+    .contact-inner { grid-template-columns: 1fr; }
+    .form-row { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; gap: 12px; }
+  }
+  @media (max-width: 600px) {
+    .hero-h1 { font-size: clamp(2.6rem, 11vw, 3.5rem); }
+    .hero-stats { flex-direction: column; gap: 32px; }
+    .hero-actions { flex-direction: column; align-items: center; }
+    .services-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="close-btn" onclick="toggleMenu()">&#10005;</button>
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#services" onclick="toggleMenu()">Services</a>
+  <a href="#testimonials" onclick="toggleMenu()">Testimonials</a>
+  <a href="#process" onclick="toggleMenu()">Process</a>
+  <a href="#contact" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#"><span>IA</span>MediAgency</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Start a Project</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-tag">IAMediAgency LLC &mdash; Media &amp; Technology</div>
+
+  <h1 class="hero-h1">
+    We Build.<br/>
+    We Market.<br/>
+    We <em>Deliver.</em>
+  </h1>
+
+  <p class="hero-sub">
+    Full-spectrum media and technology agency &mdash; from brand strategy and digital marketing to custom web &amp; app development. One partner. Infinite possibilities.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Start a Project</a>
+    <a href="#services" class="btn-ghost">
+      Explore Services
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 7H16M16 7L10 1M16 7L10 13" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+    </a>
+  </div>
+
+  <div class="hero-stats">
+    <div class="stat-item">
+      <div class="stat-num">100+</div>
+      <div class="stat-label">Projects Delivered</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Years of Excellence</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Global Clients</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>Web Development</span>
+    <span>&middot;</span>
+    <span>Mobile Apps</span>
+    <span>&middot;</span>
+    <span><em>Digital Marketing</em></span>
+    <span>&middot;</span>
+    <span>Brand Strategy</span>
+    <span>&middot;</span>
+    <span>UI / UX Design</span>
+    <span>&middot;</span>
+    <span>SEO &amp; Growth</span>
+    <span>&middot;</span>
+    <span><em>Social Media</em></span>
+    <span>&middot;</span>
+    <span>Content Creation</span>
+    <span>&middot;</span>
+    <span>E-Commerce</span>
+    <span>&middot;</span>
+    <span>Web Development</span>
+    <span>&middot;</span>
+    <span>Mobile Apps</span>
+    <span>&middot;</span>
+    <span><em>Digital Marketing</em></span>
+    <span>&middot;</span>
+    <span>Brand Strategy</span>
+    <span>&middot;</span>
+    <span>UI / UX Design</span>
+    <span>&middot;</span>
+    <span>SEO &amp; Growth</span>
+    <span>&middot;</span>
+    <span><em>Social Media</em></span>
+    <span>&middot;</span>
+    <span>Content Creation</span>
+    <span>&middot;</span>
+    <span>E-Commerce</span>
+    <span>&middot;</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left">
+        <div class="section-label reveal">About IAMediAgency</div>
+        <h2 class="section-h2 reveal reveal-delay-1">
+          Where <em>creativity</em><br/>
+          meets technology
+        </h2>
+        <div class="about-body reveal reveal-delay-2">
+          <p>
+            IAMediAgency LLC is a full-service media and technology company built on a simple belief: great businesses deserve great digital presence &mdash; and the strategy to back it up.
+          </p>
+          <p>
+            We combine creative storytelling with cutting-edge development to deliver end-to-end solutions. Whether you're launching a brand, scaling a product, or dominating your market &mdash; we are your single point of execution.
+          </p>
+          <p>
+            Founded by <strong>Eliezes</strong> and <strong>Lukeni Trindade</strong>, our team bridges the gap between the art of communication and the science of technology.
+          </p>
+        </div>
+      </div>
+      <div class="about-right">
+        <div class="about-card reveal reveal-delay-2">
+          <svg class="about-card-icon" fill="none" viewBox="0 0 36 36" stroke="currentColor" stroke-width="1.2">
+            <rect x="3" y="6" width="30" height="20" rx="2"/><path d="M12 30h12M18 26v4"/>
+          </svg>
+          <h3>Technology at the Core</h3>
+          <p>Every solution we build is engineered for performance, scalability, and long-term growth &mdash; from clean code to cloud-ready infrastructure.</p>
+        </div>
+        <div class="about-card reveal reveal-delay-3">
+          <svg class="about-card-icon" fill="none" viewBox="0 0 36 36" stroke="currentColor" stroke-width="1.2">
+            <path d="M18 3L33 12v12L18 33 3 24V12L18 3z"/><circle cx="18" cy="18" r="5"/>
+          </svg>
+          <h3>Strategy-First Marketing</h3>
+          <p>We don't just run campaigns &mdash; we build ecosystems. Data-driven, creatively bold, and always aligned with your business goals.</p>
+        </div>
+        <div class="about-card reveal reveal-delay-4">
+          <svg class="about-card-icon" fill="none" viewBox="0 0 36 36" stroke="currentColor" stroke-width="1.2">
+            <path d="M18 3C10 3 4 9 4 17c0 6 4 11 9 13.5L18 33l5-2.5C28 28 32 23 32 17c0-8-6-14-14-14z"/>
+            <path d="M13 17l3.5 3.5L23 11"/>
+          </svg>
+          <h3>The Full Package</h3>
+          <p>Media production, digital strategy, web and app development &mdash; all under one roof. Streamlined. Accountable. Exceptional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="services-header">
+      <div>
+        <div class="section-label reveal">What We Do</div>
+        <h2 class="section-h2 reveal reveal-delay-1">
+          The full stack<br/>
+          of <em>possibilities</em>
+        </h2>
+      </div>
+      <p class="services-desc reveal reveal-delay-2">
+        We offer an integrated suite of services built to take your brand from concept to market domination. No fragmentation. No hand-offs to strangers. Everything managed, delivered, and owned by us.
+      </p>
+    </div>
+    <div class="services-grid reveal">
+      <div class="service-card">
+        <div class="service-num">01</div>
+        <h3>Website Development</h3>
+        <p>Custom-built websites that don't just look stunning &mdash; they convert, perform, and scale. Built on the latest technologies, optimized for speed and search.</p>
+        <div class="service-tags">
+          <span class="tag">UI/UX Design</span>
+          <span class="tag">React / Next.js</span>
+          <span class="tag">E-Commerce</span>
+          <span class="tag">CMS</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">02</div>
+        <h3>Mobile App Development</h3>
+        <p>Native and cross-platform applications with exceptional user experiences. From MVP to full-scale deployment &mdash; we engineer apps that users love.</p>
+        <div class="service-tags">
+          <span class="tag">iOS &amp; Android</span>
+          <span class="tag">React Native</span>
+          <span class="tag">Flutter</span>
+          <span class="tag">API Integration</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">03</div>
+        <h3>Digital Marketing</h3>
+        <p>Full-funnel marketing that drives real results. From paid media and SEO to email campaigns and growth hacking &mdash; we put your brand in front of the right audience.</p>
+        <div class="service-tags">
+          <span class="tag">Meta &amp; Google Ads</span>
+          <span class="tag">SEO</span>
+          <span class="tag">Email Marketing</span>
+          <span class="tag">Analytics</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">04</div>
+        <h3>Brand &amp; Creative</h3>
+        <p>Identity systems, visual storytelling, and creative direction that make your brand impossible to ignore. We build brands built to last.</p>
+        <div class="service-tags">
+          <span class="tag">Brand Identity</span>
+          <span class="tag">Logo Design</span>
+          <span class="tag">Content Creation</span>
+          <span class="tag">Video</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">05</div>
+        <h3>Social Media Management</h3>
+        <p>Strategic content, community management, and growth-focused campaigns across every major platform. Consistent. Creative. Measurable.</p>
+        <div class="service-tags">
+          <span class="tag">Instagram</span>
+          <span class="tag">LinkedIn</span>
+          <span class="tag">TikTok</span>
+          <span class="tag">Content Calendar</span>
+        </div>
+      </div>
+      <div class="service-card">
+        <div class="service-num">06</div>
+        <h3>The Full Package</h3>
+        <p>Strategy, branding, development, marketing &mdash; everything coordinated by one team with a singular vision: your success. The complete end-to-end partnership.</p>
+        <div class="service-tags">
+          <span class="tag">End-to-End</span>
+          <span class="tag">Dedicated Team</span>
+          <span class="tag">Strategy</span>
+          <span class="tag">Ongoing Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div class="testimonials-header">
+      <div class="section-label reveal">What Clients Say</div>
+      <h2 class="section-h2 reveal reveal-delay-1">Trusted by businesses <em>worldwide</em></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"IAMediAgency transformed our entire digital presence. Our website traffic increased 300% and our leads doubled in just 3 months. Exceptional work."</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Sarah Mitchell</span>
+          <span class="testimonial-role">CEO, TechStart Inc.</span>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"The team delivered a mobile app that exceeded every expectation. Clean design, flawless performance, and they were a joy to work with throughout the process."</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Marcus Rivera</span>
+          <span class="testimonial-role">Founder, NovaPay</span>
+        </div>
+      </div>
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Their marketing strategy took our e-commerce brand from $50K to $200K monthly revenue. They don't just deliver &mdash; they genuinely care about your success."</p>
+        <div class="testimonial-author">
+          <span class="testimonial-name">Elena Vasquez</span>
+          <span class="testimonial-role">Director, Bloom & Co.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div class="process-inner">
+      <div class="process-left">
+        <div class="section-label reveal">How We Work</div>
+        <h2 class="section-h2 reveal reveal-delay-1">
+          Precision in<br/>
+          every <em>step</em>
+        </h2>
+        <p class="reveal reveal-delay-2" style="margin-top:24px;">
+          We follow a proven framework that ensures every project is delivered on time, on brand, and above expectations. No guesswork. Just results.
+        </p>
+      </div>
+      <div class="process-steps">
+        <div class="step reveal">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h3>Discovery &amp; Strategy</h3>
+            <p>We immerse ourselves in your world &mdash; understanding your goals, audience, competition, and vision. Every great project begins with clarity.</p>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-1">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h3>Design &amp; Architecture</h3>
+            <p>We craft the visual and technical blueprint. Wireframes, brand systems, technical specs &mdash; everything aligned before a single line of code is written.</p>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-2">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h3>Build &amp; Execute</h3>
+            <p>Development, content creation, campaign setup &mdash; our team moves with precision and speed. You stay informed at every milestone.</p>
+          </div>
+        </div>
+        <div class="step reveal reveal-delay-3">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h3>Launch &amp; Scale</h3>
+            <p>We don't just launch and leave. We monitor, optimize, and grow with you &mdash; turning launch day into the beginning of a long-term partnership.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-inner">
+      <div class="contact-left">
+        <div class="section-label reveal">Get in Touch</div>
+        <h2 class="section-h2 reveal reveal-delay-1">
+          Let's build<br/>
+          something <em>great</em>
+        </h2>
+        <p class="reveal reveal-delay-2" style="margin-top:24px;">
+          Ready to take your brand to the next level? Tell us about your project and let's create something exceptional together.
+        </p>
+        <div class="contact-info reveal reveal-delay-3">
+          <a class="contact-link" href="mailto:hello@iamediagency.com">
+            <svg class="contact-link-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4">
+              <rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 7 10-7"/>
+            </svg>
+            hello@iamediagency.com
+          </a>
+          <a class="contact-link" href="tel:+1234567890">
+            <svg class="contact-link-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4">
+              <path d="M6.6 10.8a15.4 15.4 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.6 1 1 0 011 1V18a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1 11.4 11.4 0 00.6 3.6 1 1 0 01-.25 1L6.6 10.8z"/>
+            </svg>
+            +1 (234) 567-890
+          </a>
+          <div class="contact-link" style="cursor:default;">
+            <svg class="contact-link-icon" width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.4">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+            </svg>
+            United States &mdash; Worldwide Operations
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form reveal reveal-delay-2">
+        <div class="form-row">
+          <div class="field">
+            <label>Full Name</label>
+            <input type="text" placeholder="Your name" id="f-name"/>
+          </div>
+          <div class="field">
+            <label>Email Address</label>
+            <input type="email" placeholder="your@email.com" id="f-email"/>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label>Company</label>
+            <input type="text" placeholder="Your company" id="f-company"/>
+          </div>
+          <div class="field">
+            <label>Service Needed</label>
+            <select id="f-service">
+              <option value="">Select a service</option>
+              <option>Website Development</option>
+              <option>Mobile App Development</option>
+              <option>Digital Marketing</option>
+              <option>Brand &amp; Creative</option>
+              <option>Social Media Management</option>
+              <option>The Full Package</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <label>Tell Us About Your Project</label>
+          <textarea placeholder="Describe your goals, timeline, and any details that will help us understand your needs..." id="f-message"></textarea>
+        </div>
+        <button class="form-submit" onclick="handleSubmit()">Send Message &rarr;</button>
+        <p class="form-note">By submitting, you agree to our Privacy Policy. We'll respond within 24 hours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <a class="footer-logo" href="#">IAMediAgency LLC</a>
+      <ul class="footer-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#process">Process</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <div class="footer-social">
+        <a href="https://instagram.com/i.a.mediagency" target="_blank" aria-label="Instagram">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+        </a>
+        <a href="https://linkedin.com/company/iamediagency" target="_blank" aria-label="LinkedIn">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </a>
+        <a href="https://tiktok.com/@iamediagency" target="_blank" aria-label="TikTok">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2026 IAMediAgency LLC. All rights reserved.</p>
+      <p class="footer-copy">Designed with precision. Built with purpose.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">&#10003; Message sent &mdash; we'll be in touch shortly.</div>
+
+<script>
+  /* NAV SCROLL */
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  /* MOBILE MENU */
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  /* SCROLL REVEAL */
+  const revealEls = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => obs.observe(el));
+
+  /* FORM SUBMIT */
+  function handleSubmit() {
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    if (!name || !email) {
+      alert('Please fill in your name and email.');
+      return;
+    }
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+    ['f-name','f-email','f-company','f-service','f-message'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  }
+</script>
+</body>
+</html>
